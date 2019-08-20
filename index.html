@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+</head>
+
+<body>
+    <header>
+        <h1>Tervezési sebesség</h1>
+    </header>
+    <article id="all">
+        <p id="demo"></p>
+        <select id="terulet" onchange="EnvironmentalCondition(), Road(), RoadClass(), Output()">
+            <option value="B.">Belterület</option>
+            <option value="K.">Külterület</option>
+        </select><br />
+        <select id="utak" onchange="RoadClass(), Output()"></select><br />
+        <select id="utosztaly" onchange="Output()"></select><br />
+        <select id="Beepitetseg" onchange="Output()"></select>
+    </article>
+    <footer>
+        <a href="https://ume.kozut.hu/dokumentum/40" target="_blank">Teljes szabvány</a>
+    </footer>
+    <script>
+        Road();
+        RoadClass();
+        EnvironmentalCondition();
+        Output();
+
+        function Output() {
+            var output = "";
+            output += document.getElementById("terulet").value;
+            output += document.getElementById("utak").value;
+            output += document.getElementById("utosztaly").value;
+            output += document.getElementById("Beepitetseg").value;
+            output += " - ";
+            output += DesignSpeed() + " km/h";
+            document.getElementById("demo").innerHTML = output;
+        }
+
+        function RoadClass() {
+            var output_class = "";
+            if (document.getElementById("terulet").value == "B.") {
+                if (document.getElementById("utak").value == "III.") {
+                    output_class += '$<option value="a.">a</option>'
+                    output_class += '$<option value="b.">b</option>'
+                }
+                else if (document.getElementById("utak").value == "IV.") {
+                    output_class += '$<option value="b.">b</option>'
+                    output_class += '$<option value="c.">c</option>'
+                }
+                else if (document.getElementById("utak").value == "V.") {
+                    output_class += '$<option value="c.">c</option>'
+                    output_class += '$<option value="d.">d</option>'
+                }
+                else if (document.getElementById("utak").value == "VI.") {
+                    output_class += '$<option value="d.">d</option>'
+                } else {
+                    output_class = "";
+                }
+            } else {
+                output_class = "";
+            }
+            document.getElementById("utosztaly").innerHTML = output_class;
+        }
+
+        function Road() {
+            var two = document.getElementById("terulet").value;
+            var output_road = "";
+            if (two == "B.") {
+                output_road += '$<option value="I.">Autópálya</option>'
+                output_road += '$<option value="II.">Autóút</option>'
+                output_road += '$<option value="III.">I. rendű főút</option>'
+                output_road += '$<option value="IV.">II. rendű főút</option>'
+                output_road += '$<option value="V.">Gyűjtőút</option>'
+                output_road += '$<option value="VI.">Lakóút, kiszolgálóút, vegyes használatú út</option>'
+                output_road += '$<option value="VII.">Kerékpárút</option>'
+                output_road += '$<option value="VIII.">Gyalogút</option>'
+            } else {
+                output_road += '$<option value="I.">Autópálya</option>'
+                output_road += '$<option value="II.">Autóút</option>'
+                output_road += '$<option value="III.">I. rendű főút</option>'
+                output_road += '$<option value="IV.">II. rendű főút</option>'
+                output_road += '$<option value="V.">Összekötő út, bekötőút, állomáshoz, révhez, repülőtérhez vezető út</option>'
+                output_road += '$<option value="VI.">Pl. mezőgazdasági út, szervizút stb.</option>'
+                output_road += '$<option value="VII.">Kerékpárút</option>'
+                output_road += '$<option value="VIII.">Gyalogút</option>'
+            }
+            document.getElementById("utak").innerHTML = output_road;
+        }
+
+        function EnvironmentalCondition() {
+            var one = document.getElementById("terulet").value;
+            var output_select = "";
+            if (one == "B.") {
+                output_select += '$<option value="A">Beépítetlen, vagy lazán beéptett terület, nem érzékeny környezet</option>'
+                output_select += '$<option value="B">Beépítetlen, vagy lazán beéptett terület, érzékeny környezet</option>'
+                output_select += '$<option value="C">Sűrűn beéptett terület, nem érzékeny környezet</option>'
+                output_select += '$<option value="D">Sűrűn beéptett terület, érzékeny környezet</option>'
+            } else {
+                output_select += '$<option value="A">Síkvidék, természetes és/vagy épített környezet korlátozások nélkül</option>'
+                output_select += '$<option value="B">Dombvidék, természeti és/vagy épített környezet korlátozás nélkül</option>'
+                output_select += '$<option value="B">Síkvidék oly mértékű természeti és/vagy épített korlátozásokkal, amelyek még lehetővéteszik a "B" kategóriához előirt tervezési sebességekhez kapcsolt paraméterek gaztdaságos alkamazását</option>'
+                output_select += '$<option value="C">Hegyvidék</option>'
+                output_select += '$<option value="C">Sík- és dombvidék oly mértékű természeti és/vagy épített korlátozásokkal, ammelyek csak a hegyvidéki tervezéso paraméterek alkalmazását teszik lehetővé</option>'
+            }
+            document.getElementById("Beepitetseg").innerHTML = output_select;
+        }
+
+        function DesignSpeed() {
+            var DS_two = document.getElementById("utak").value;
+            var DS_three = document.getElementById("utosztaly").value;
+            var DS_four = document.getElementById("Beepitetseg").value;
+            if (document.getElementById("terulet").value == "B.") {
+                switch (DS_two) {
+                    case "I.":
+                        switch (DS_four) {
+                            case "A": return "110"; break;
+                            case "B": return "90"; break;
+                            case "C": return "90"; break;
+                            case "D": return "-"; break;
+                        }
+                        break;
+                    case "II.":
+                        switch (DS_four) {
+                            case "A": return "90"; break;
+                            case "B": return "80"; break;
+                            case "C": return "80"; break;
+                            case "D": return "-"; break;
+                        }
+                        break;
+                    case "III.":
+                        if (DS_three == "a") {
+                            switch (DS_four) {
+                                case "A": return "80"; break;
+                                case "B": return "70"; break;
+                                case "C": return "60"; break;
+                                case "D": return "-"; break;
+                            }
+                        } else if (DS_three == "b") {
+                            switch (DS_four) {
+                                case "A": return "70"; break;
+                                case "B": return "60"; break;
+                                case "C": return "50"; break;
+                                case "D": return "40"; break;
+                            }
+                        }
+                        break;
+                    case "IV.":
+                        if (DS_three == "b") {
+                            switch (DS_four) {
+                                case "A": return "70"; break;
+                                case "B": return "60"; break;
+                                case "C": return "50"; break;
+                                case "D": return "40"; break;
+                            }
+                        } else if (DS_three == "c") {
+                            switch (DS_four) {
+                                case "A": return "60"; break;
+                                case "B": return "50"; break;
+                                case "C": return "40"; break;
+                                case "D": return "40"; break;
+                            }
+                        }
+                        break;
+                    case "V.":
+                        if (DS_three == "c") {
+                            switch (DS_four) {
+                                case "A": return "60"; break;
+                                case "B": return "50"; break;
+                                case "C": return "40"; break;
+                                case "D": return "30"; break;
+                            }
+                        } else if (DS_three == "d") {
+                            switch (DS_four) {
+                                case "A": return "40"; break;
+                                case "B": return "40"; break;
+                                case "C": return "30"; break;
+                                case "D": return "-"; break;
+                            }
+                        }
+                        break;
+                    case "VI.":
+                        switch (DS_four) {
+                            case "A": return "40"; break;
+                            case "B": return "40"; break;
+                            case "C": return "30"; break;
+                            case "D": return "-"; break;
+                        }
+                        break;
+                    case "VII.":
+                        return "ÚT 2-1.203 szerint";
+                        break;
+                    case "VIII.":
+                        return "ÚT 2-1.203 szerint";
+                        break;
+                }
+            } else {
+                switch (DS_two) {
+                    case "I.":
+                        switch (DS_four) {
+                            case "A": return "130"; break;
+                            case "B": return "110"; break;
+                            case "C": return "110"; break;
+                        }
+                        break;
+                    case "II.":
+                        switch (DS_four) {
+                            case "A": return "110"; break;
+                            case "B": return "90"; break;
+                            case "C": return "90"; break;
+                        }
+                        break;
+                    case "III.":
+                        switch (DS_four) {
+                            case "A": return "90"; break;
+                            case "B": return "90"; break;
+                            case "C": return "80"; break;
+                        }
+                        break;
+                    case "IV.":
+                        switch (DS_four) {
+                            case "A": return "90"; break;
+                            case "B": return "70"; break;
+                            case "C": return "60"; break;
+                        }
+                        break;
+                    case "V.":
+                        switch (DS_four) {
+                            case "A": return "90"; break;
+                            case "B": return "70"; break;
+                            case "C": return "50"; break;
+                        }
+                        break;
+                    case "VI.":
+                        return "Hálozati szerep szerint (60, 50, 30)";
+                        break;
+                    case "VII.":
+                        return "ÚT 2-1.203 szerint";
+                        break;
+                    case "VIII.":
+                        return "-";
+                        break;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
