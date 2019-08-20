@@ -115,6 +115,9 @@
             var DS_two = document.getElementById("utak").value;
             var DS_three = document.getElementById("utosztaly").value;
             var DS_four = document.getElementById("Beepitetseg").value;
+            console.log(DS_two);
+            console.log(DS_three);
+            console.log(DS_four);
             if (document.getElementById("terulet").value == "B.") {
                 switch (DS_two) {
                     case "I.":
@@ -134,14 +137,14 @@
                         }
                         break;
                     case "III.":
-                        if (DS_three == "a") {
+                        if (DS_three == "a.") {
                             switch (DS_four) {
                                 case "A": return "80"; break;
                                 case "B": return "70"; break;
                                 case "C": return "60"; break;
                                 case "D": return "-"; break;
                             }
-                        } else if (DS_three == "b") {
+                        } else if (DS_three == "b.") {
                             switch (DS_four) {
                                 case "A": return "70"; break;
                                 case "B": return "60"; break;
@@ -151,14 +154,14 @@
                         }
                         break;
                     case "IV.":
-                        if (DS_three == "b") {
+                        if (DS_three == "b.") {
                             switch (DS_four) {
                                 case "A": return "70"; break;
                                 case "B": return "60"; break;
                                 case "C": return "50"; break;
                                 case "D": return "40"; break;
                             }
-                        } else if (DS_three == "c") {
+                        } else if (DS_three == "c.") {
                             switch (DS_four) {
                                 case "A": return "60"; break;
                                 case "B": return "50"; break;
@@ -168,14 +171,14 @@
                         }
                         break;
                     case "V.":
-                        if (DS_three == "c") {
+                        if (DS_three == "c.") {
                             switch (DS_four) {
                                 case "A": return "60"; break;
                                 case "B": return "50"; break;
                                 case "C": return "40"; break;
                                 case "D": return "30"; break;
                             }
-                        } else if (DS_three == "d") {
+                        } else if (DS_three == "d.") {
                             switch (DS_four) {
                                 case "A": return "40"; break;
                                 case "B": return "40"; break;
